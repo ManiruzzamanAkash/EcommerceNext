@@ -1,0 +1,160 @@
+/** Theme Blue **/
+
+$base-color: #346de9;
+$border-dark: #0e317c;
+$light_background: #eeeeee;
+body {
+    background-color: $light_background;
+}
+
+
+/*** Global Styles **/
+
+.p-1 {
+    padding: 0.5rem;
+}
+
+.mt-1 {
+    margin-top: 0.5rem;
+}
+
+.m-1 {
+    margin: 0.5rem;
+}
+
+.p-2 {
+    padding: 1.5rem;
+}
+
+.m-2 {
+    margin: 1.5rem;
+}
+
+.page-padding {
+    padding: 30px;
+}
+
+.margin-center {
+    margin: "0px auto";
+}
+
+.buttonMinified {
+    padding: 4px 5px !important;
+}
+
+
+/*** Global Styles **/
+
+
+/** Carousel **/
+
+.carousel-image {
+    width: 100%;
+    height: 270px;
+}
+
+.ant-carousel .slick-dots li button {
+    width: 20px !important;
+    height: 20px !important;
+    padding: 0;
+    background: #001529 !important;
+    border: 0;
+    border-radius: 14px !important;
+}
+
+.ant-carousel .slick-dots li {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 10px 10px !important;
+    margin-right: 7px !important;
+    margin-left: 0px !important;
+}
+
+
+/** Carousel **/
+
+
+/** Product List **/
+
+.site-card-wrapper {
+    background: #fff;
+    padding: 30px;
+}
+
+.product-single {
+    padding: 0px;
+    box-shadow: 0px 0px 20px 0px #8080800a;
+    transition: .3s;
+    border: none !important;
+    height: 335px;
+    position: relative;
+    z-index: 1000;
+}
+
+.product-single img {
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    transform: scale(.9, .9);
+    webkit-transform: scale(.9, .9)
+}
+
+.product-single .ant-card-body {
+    padding: 10px !important;
+}
+
+.product-single:hover img {
+    transform: scale(1, 1);
+    webkit-transform: scale(1, 1);
+}
+
+.product-single .cart-buttons {
+    display: none;
+}
+
+.product-single:hover .cart-buttons {
+    display: block;
+}
+
+.product-single:hover {
+    box-shadow: 3px -3px 13px 0px #00152945;
+    cursor: pointer !important;
+}
+
+.product-single .ant-card-meta-title {
+    margin-bottom: 0px !important;
+}
+
+.price-on {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.price-off {
+    text-decoration: line-through;
+    color: red;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+
+/** Product List **/
+
+
+/** Ant Design Override **/
+
+.ant-notification-notice {
+    padding: 16px 24px;
+    background: #001529 !important;
+    color: #FFF !important;
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+    color: #FFF;
+}
+
+.ant-notification-close-x {
+    color: #FFF;
+}
+
+
+/** Ant Design Override **/

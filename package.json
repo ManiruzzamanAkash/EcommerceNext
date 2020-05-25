@@ -8,8 +8,23 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "9.4.1",
+    "@ant-design/icons": "^4.1.0",
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@zeit/next-sass": "^1.0.1",
+    "antd": "^4.2.4",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "font-awesome": "^4.7.0",
+    "next": "^9.4.1",
+    "next-images": "^1.4.0",
+    "next-redux-wrapper": "^6.0.0",
+    "node-sass": "^4.14.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   }
 }
