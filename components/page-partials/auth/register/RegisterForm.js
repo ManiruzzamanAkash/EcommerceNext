@@ -16,10 +16,7 @@ import {
   Alert,
 } from "antd";
 import Link from "next/link";
-import {
-  loginAction,
-  getAuthData,
-} from "../../../../store/actions/auth/LoginAction";
+import { registerAction } from "../../../../store/actions/auth/RegisterAction";
 
 const layout = {
   labelCol: { span: 8 },
@@ -32,23 +29,23 @@ const tailLayout = {
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const submitLogin = (loginData) => {
-    dispatch(loginAction(loginData));
+  const submitRegister = (registerData) => {
+    dispatch(registerAction(registerData));
   };
 
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const loginMessage = useSelector((state) => state.auth.loginMessage);
+  const registerMessage = useSelector((state) => state.auth.registerMessage);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     // dispatch(getAuthData());
     if (isLoggedIn) {
-      const key = "loginNotification";
+      const key = "registerNotification";
       const placement = "bottomTop";
       notification["success"]({
         key,
         message: "Login Success",
-        description: loginMessage,
+        description: registerMessage,
         placement,
         duration: 1.5,
       });
@@ -76,17 +73,22 @@ const RegisterForm = () => {
             <Title level={3}>Sign Up</Title>
             <Divider />
 
-            {!isLoggedIn && loginMessage.length > 0 && (
+            {!isLoggedIn && registerMessage.length > 0 && (
               <>
-                <Alert message={loginMessage} type="error" closable showIcon />
+                <Alert
+                  message={registerMessage}
+                  type="error"
+                  closable
+                  showIcon
+                />
                 <br />
               </>
             )}
 
-            {isLoggedIn && loginMessage.length > 0 && (
+            {isLoggedIn && registerMessage.length > 0 && (
               <>
                 <Alert
-                  message={loginMessage}
+                  message={registerMessage}
                   type="success"
                   closable
                   showIcon
@@ -99,16 +101,69 @@ const RegisterForm = () => {
               {...layout}
               name="basic"
               initialValues={{ remember: true }}
-              onFinish={submitLogin}
-              // onFinishFailed={onFinishFailed}
+              onFinish={submitRegister}
             >
               <Form.Item
-                label="Username/Email"
-                name="username"
+                label="First Name"
+                name="first_name"
+                hasFeedback
                 rules={[
+                  { whitespace: true, message: "" },
+                  {
+                    max: 30,
+                    message:
+                      "Please give your first name between 30 characters !",
+                  },
+                  {
+                    min: 3,
+                    message:
+                      "Please give your first name minimum of 3 characters !",
+                  },
                   {
                     required: true,
-                    message: "Please give your username or email address!",
+                    message: "Please give your first name !",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Last Name"
+                name="last_name"
+                hasFeedback
+                rules={[
+                  { whitespace: true, message: "" },
+                  {
+                    max: 20,
+                    message:
+                      "Please give your last name between 20 characters !",
+                  },
+                  {
+                    min: 3,
+                    message:
+                      "Please give your last name minimum of 3 characters !",
+                  },
+                  {
+                    required: true,
+                    message: "Please give your last name !",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Email Address"
+                name="email"
+                hasFeedback
+                rules={[
+                  { whitespace: true, message: "" },
+                  {
+                    type: "email",
+                    message: "Please give a valid email address !",
+                  },
+                  {
+                    required: true,
+                    message: "Please give your email address !",
                   },
                 ]}
               >
@@ -118,8 +173,52 @@ const RegisterForm = () => {
               <Form.Item
                 label="Password"
                 name="password"
+                hasFeedback
                 rules={[
-                  { required: true, message: "Please give your password!" },
+                  // {
+                  //   pattern: new RegExp(
+                  //     "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$"
+                  //   ),
+                  //   message:
+                  //     "8 characters length, 1 letter in Upper Case, 1 Special Character (!@#$&*), 2 numerals (0-9), 1 letters in Lower Case",
+                  // },
+                  {
+                    max: 50,
+                    message:
+                      "Please give your password between 50 characters !",
+                  },
+                  {
+                    min: 6,
+                    message:
+                      "Please give your password minimum of 6 characters !",
+                  },
+                  { required: true, message: "Please give your password !" },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+
+              <Form.Item
+                label="Confirm Password"
+                name="password_confirmation"
+                dependencies={["password"]}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Please give your confirm password !",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+
+                      return Promise.reject(
+                        "Password and confirm password doesn't match !"
+                      );
+                    },
+                  }),
                 ]}
               >
                 <Input.Password />
@@ -135,15 +234,15 @@ const RegisterForm = () => {
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit" loading={isLoading}>
-                  Sign In
+                  Sign Up
                 </Button>
               </Form.Item>
             </Form>
 
             <div>
-              <Link href="/sign-up">
+              <Link href="/login">
                 <a className="text-success">
-                  Don't have an account yet ? Register Now
+                  Already have an account ? Sign In Now
                 </a>
               </Link>
             </div>

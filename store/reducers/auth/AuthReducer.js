@@ -6,6 +6,7 @@ const initialState = {
   userData: {},
   tokenData: "",
   loginMessage: "",
+  registerMessage: "",
   isLoading: false,
   redirected_route: null,
 };

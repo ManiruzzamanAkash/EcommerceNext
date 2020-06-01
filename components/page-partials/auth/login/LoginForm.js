@@ -105,7 +105,9 @@ const LoginForm = () => {
               <Form.Item
                 label="Username/Email"
                 name="username"
+                hasFeedback
                 rules={[
+                  { whitespace: true, message: "" },
                   {
                     required: true,
                     message: "Please give your username or email address!",
@@ -118,6 +120,7 @@ const LoginForm = () => {
               <Form.Item
                 label="Password"
                 name="password"
+                hasFeedback
                 rules={[
                   { required: true, message: "Please give your password!" },
                 ]}
