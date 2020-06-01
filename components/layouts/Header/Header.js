@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "next/router";
 import Link from "next/link";
 import { Layout, Menu, Badge } from "antd";
 const { Header } = Layout;
@@ -9,16 +11,71 @@ import {
   GiftOutlined,
   SendOutlined,
   AppstoreOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
+import CartCountBadge from "../../page-partials/carts/count-badge/CartCountBadge";
+import {
+  getAuthData,
+  logoutUserData,
+} from "../../../store/actions/auth/LoginAction";
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ router }, props) => {
+  const dispatch = useDispatch();
+
+  const getSelectedRoutes = () => {
+    switch (router.pathname) {
+      case "/":
+        return "home";
+
+      case "/carts":
+        return "carts";
+
+      case "/contacts":
+        return "contacts";
+
+      case "/login":
+        return "login";
+
+      default:
+        return "";
+    }
+  };
+
+  const [defaultSelectedKeys, setdefaultSelectedKeys] = useState([
+    getSelectedRoutes(),
+  ]);
+
+  useEffect(() => {
+    dispatch(getAuthData());
+  }, [dispatch]);
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userData = useSelector((state) => state.auth.userData);
+
+  const handleClick = (e) => {
+    switch (e.key) {
+      case "logout":
+        dispatch(logoutUserData());
+        router.reload(window.location.pathname);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <Header className="header">
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1">
+        <Menu
+          onClick={handleClick}
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={defaultSelectedKeys}
+        >
+          <Menu.Item key="home">
             <Link href="/">
               <a>
                 <HomeOutlined /> Home
@@ -54,27 +111,58 @@ const HeaderMenu = () => {
             </Menu.ItemGroup>
           </SubMenu>
 
-          <Menu.Item key="4">
+          <Menu.Item key="offers">
             <GiftOutlined />
             Offers
           </Menu.Item>
 
-          <Menu.Item key="5">
+          <Menu.Item key="carts">
             <Link href="/carts">
               <a>
                 <ShoppingCartOutlined /> Cart
-                <Badge count={5}>&nbsp;&nbsp;&nbsp;</Badge>
+                <CartCountBadge />
               </a>
             </Link>
           </Menu.Item>
-          <Menu.Item key="6">
-            <SendOutlined />
-            Contact Us
+          <Menu.Item key="contacts">
+            <Link href="/contacts">
+              <a>
+                <SendOutlined />
+                Contact Us
+              </a>
+            </Link>
           </Menu.Item>
+
+          {!isLoggedIn && (
+            <Menu.Item key="login">
+              <Link href="/login">
+                <a>
+                  <LoginOutlined /> Login
+                </a>
+              </Link>
+            </Menu.Item>
+          )}
+
+          {isLoggedIn && (
+            <Menu.Item key="user_account">
+              <Link href="">
+                <a>{userData && userData.first_name}</a>
+              </Link>
+            </Menu.Item>
+          )}
+          {isLoggedIn && (
+            <Menu.Item key="logout">
+              <Link href="">
+                <a>
+                  <LoginOutlined /> Logout
+                </a>
+              </Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
     </>
   );
 };
 
-export default HeaderMenu;
+export default withRouter(HeaderMenu);

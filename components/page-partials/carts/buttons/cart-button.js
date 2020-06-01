@@ -34,8 +34,6 @@ const CartButton = (props) => {
       dispatch(postEmptyCartMessage());
     }
   }, [loading_add]);
-  console.log("loading_add", loading_add);
-  //   const carts = useSelector((state) => state.cart.carts);
 
   return (
     <>

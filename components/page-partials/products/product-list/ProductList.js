@@ -38,9 +38,7 @@ const ProductList = (props) => {
     <div className="site-card-wrapper">
       <Row>
         <Col span={6}>
-          <Title type="primary" level={3}>
-            All Products
-          </Title>
+          <Title level={3}>All Products</Title>
         </Col>
         <Col span={18}>
           <ProductListPagination

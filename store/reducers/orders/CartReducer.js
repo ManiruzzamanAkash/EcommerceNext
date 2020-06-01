@@ -2,11 +2,12 @@ import * as Types from "../../Types";
 
 const initialState = {
   carts: [],
-  totalCount: 0,
-  totalItems: 0,
+  products: [],
   loading: false,
   loading_add: false,
+  loading_update: false,
   add_message: "",
+  delete_message: "",
   error: null,
 };
 
@@ -18,11 +19,16 @@ const CartReducer = (state = initialState, action) => {
         loading_add: action.payload,
         add_message: "Item Added to the cart successfully",
       };
-
     case Types.EMPTY_CART_MESSAGE:
       return {
         ...state,
         add_message: "",
+      };
+
+    case Types.EMPTY_CART_DELETE_MESSAGE:
+      return {
+        ...state,
+        delete_message: "",
       };
 
     case Types.GET_CARTS_LOADING:
@@ -35,9 +41,8 @@ const CartReducer = (state = initialState, action) => {
       return {
         ...state,
         carts: action.payload.carts,
-        total: action.payload.total,
+        products: action.payload.products,
         loading: false,
-        loading_add: false,
         errors: null,
       };
 
@@ -45,10 +50,26 @@ const CartReducer = (state = initialState, action) => {
       return {
         ...state,
         carts: action.payload.carts,
-        totalCount: action.payload.totalCount,
-        totalItems: action.payload.totalItems,
+        products: action.payload.products,
         loading_add: false,
         errors: null,
+      };
+
+    case Types.UPDATE_CARTS_DATA:
+      return {
+        ...state,
+        carts: action.payload.carts,
+        products: action.payload.products,
+        errors: null,
+      };
+
+    case Types.DELETE_CARTS_DATA:
+      return {
+        ...state,
+        carts: action.payload.carts,
+        products: action.payload.products,
+        errors: null,
+        delete_message: "Cart Item has been deleted !",
       };
 
     default:

@@ -10,24 +10,38 @@ body {
 
 /*** Global Styles **/
 
-.p-1 {
-    padding: 0.5rem;
-}
-
-.mt-1 {
-    margin-top: 0.5rem;
-}
-
-.m-1 {
-    margin: 0.5rem;
-}
-
-.p-2 {
-    padding: 1.5rem;
-}
-
-.m-2 {
-    margin: 1.5rem;
+@for $i from 1 through 5 {
+    $size: $i - 0.5rem;
+    .p-#{$i} {
+        padding: $size;
+    }
+    .pr-#{$i} {
+        padding-right: $size;
+    }
+    .pl-#{$i} {
+        padding-left: $size;
+    }
+    .pt-#{$i} {
+        padding-top: $size;
+    }
+    .pb-#{$i} {
+        padding-bottom: $size;
+    }
+    .m-#{$i} {
+        margin: $size;
+    }
+    .mr-#{$i} {
+        margin-right: $size;
+    }
+    .ml-#{$i} {
+        margin-left: $size;
+    }
+    .mt-#{$i} {
+        margin-top: $size;
+    }
+    .mb-#{$i} {
+        margin-bottom: $size;
+    }
 }
 
 .page-padding {

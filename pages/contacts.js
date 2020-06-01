@@ -1,17 +1,17 @@
 import React from "react";
 import Head from "next/head";
 import MainLayout from "../components/layouts/Layout";
-import CartList from "../components/page-partials/carts/cart-list/carts";
+import LoginForm from "../components/page-partials/auth/login/LoginForm";
 
-export default function CartsPage() {
+export default function loginPage() {
   return (
     <>
       <Head>
-        <title>Carts | MyEcommerce</title>
+        <title>Contact Us | MyEcommerce</title>
       </Head>
       <MainLayout>
         <div className="site-main-content page-padding">
-          <CartList />
+          <h2>Contact Us</h2>
         </div>
       </MainLayout>
     </>
