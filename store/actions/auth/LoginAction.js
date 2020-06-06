@@ -43,6 +43,11 @@ export const getAuthData = () => async (dispatch) => {
       data.isLoggedIn = false;
       data.tokenData = "";
     }
+  } else {
+    data = {};
+    data.userData = "";
+    data.isLoggedIn = false;
+    data.tokenData = "";
   }
   dispatch({ type: Types.AUTH_GET_LOGIN_DATA, payload: data });
 };

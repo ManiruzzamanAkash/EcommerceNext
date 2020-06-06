@@ -8,6 +8,8 @@ const initialState = {
   loginMessage: "",
   registerMessage: "",
   isLoading: false,
+  isLoadingRegister: false,
+  registrationStatus: false,
   redirected_route: null,
 };
 

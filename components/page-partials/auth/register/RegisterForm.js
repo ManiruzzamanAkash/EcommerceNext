@@ -33,23 +33,29 @@ const RegisterForm = () => {
     dispatch(registerAction(registerData));
   };
 
-  const isLoading = useSelector((state) => state.auth.isLoading);
+  const isLoadingRegister = useSelector(
+    (state) => state.auth.isLoadingRegister
+  );
   const registerMessage = useSelector((state) => state.auth.registerMessage);
+  const registrationStatus = useSelector(
+    (state) => state.auth.registrationStatus
+  );
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
-    // dispatch(getAuthData());
-    if (isLoggedIn) {
+    if (registrationStatus && registerMessage.length > 0) {
       const key = "registerNotification";
       const placement = "bottomTop";
       notification["success"]({
         key,
-        message: "Login Success",
+        message: "Sign Up Success",
         description: registerMessage,
         placement,
         duration: 1.5,
       });
+    }
 
+    if (isLoggedIn) {
       // Redirect to local storage Redirected_URL or HomePage
       const redirected_route = localStorage.getItem("redirected_route");
       if (
@@ -63,7 +69,7 @@ const RegisterForm = () => {
         Router.replace("/");
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, registrationStatus, registerMessage]);
 
   return (
     <>
@@ -226,14 +232,30 @@ const RegisterForm = () => {
 
               <Form.Item
                 {...tailLayout}
-                name="remember"
+                name="terms"
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Read and Check Terms and Service",
+                  },
+                ]}
                 valuePropName="checked"
               >
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>
+                  I'm agree with{" "}
+                  <Link href="/terms-and-service">
+                    <a target="_blank">Terms and Service</a>
+                  </Link>
+                </Checkbox>
               </Form.Item>
 
               <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit" loading={isLoading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={isLoadingRegister}
+                >
                   Sign Up
                 </Button>
               </Form.Item>

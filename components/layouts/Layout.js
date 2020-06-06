@@ -5,15 +5,17 @@ import Head from "next/head";
 
 import FooterMain from "./Footer/Footer";
 import HeaderMenu from "./Header/Header";
+import MainMetaTags from "../page-partials/meta-tags/main";
 
 const MainLayout = (props) => {
   return (
     <>
-      <Head>
-        <title>
+      {/* <Head>
+        <title key="site_title">
           My Ecommerce Store | A Free Online Ecommerce Store For All
         </title>
-      </Head>
+      </Head> */}
+      <MainMetaTags />
 
       <Layout>
         <HeaderMenu />

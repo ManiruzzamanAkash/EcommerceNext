@@ -6,6 +6,8 @@ import axios from "axios";
 import { API_POST_REGISTER } from "../../ApiEndpoint";
 
 export const registerAction = (registerData) => async (dispatch) => {
+  console.log("registerData", registerData);
+  return 1;
   let loginResponse = {
     userData: {},
     tokenData: {},
